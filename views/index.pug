@@ -1,0 +1,43 @@
+html
+  head
+    link(href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', rel='stylesheet')
+  body
+    main.container.mt-5
+      .card.card-body
+        h2=title
+        form(name="address_form" action="/geo" method="POST")
+          .form-group
+            label(for="Enter Address")
+            textarea#alamat.form-control(name="alamat", rows="3")
+          input.btn.btn-lg.btn-primary(type="submit" value="Submit")
+        h4 #{hasil}
+        textarea#output.form-control(name="output", rows="3")=location_info
+        script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js')
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js')
+        script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js')
+        script(src='https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js')
+        script.
+          // Wait for the DOM to be ready
+          // https://www.sitepoint.com/basic-jquery-form-validation-tutorial/
+          $(function() {
+            // Initialize form validation on the address form.
+            // It has the name attribute "address_form"
+            $("form[name='address_form']").validate({
+              // Specify validation rules
+              rules: {
+                // The key name on the left side is the name attribute
+                // of an input field. Validation rules are defined
+                // on the right side
+                alamat: "required"
+              },
+              // Specify validation error messages
+              messages: {
+                alamat: "Alamat harus diisi"
+              },
+              // Make sure the form is submitted to the destination defined
+              // in the "action" attribute of the form when valid
+              submitHandler: function(form) {
+                form.submit();
+              }
+            });
+          });
